@@ -16,6 +16,10 @@ https://github.com/user-attachments/assets/d0a9f843-49cc-4ee5-94c2-17093148e5c7
 ### View Usage Mount/Unmount EFI Video ⬇︎ Automate Password
 https://github.com/user-attachments/assets/5f0d1a7a-d31d-444f-b1b2-b23bc2da2a90
 
+### View Usage Mount/Unmount (GPT) ➣ DMG ⬇︎ Automate Password
+https://github.com/user-attachments/assets/a63c7668-aef3-486f-9c14-055ec597a26a
+
+
 
 
 ## Image: Release Build
