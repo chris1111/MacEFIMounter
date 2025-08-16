@@ -28,6 +28,6 @@ MacEFIMounter is a (Status Menu) to mount and Unmount EFI partitions in macOS
   
 
 <video controls autoplay>
-  <source src="Video/"Usage Release.mov type="video/mov">
+  <source src="Video/"Usage Release.mp4 type="video/mp4">
 
 </video>

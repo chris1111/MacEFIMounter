@@ -1,5 +1,7 @@
 # MacEFIMounter
 
+[![pages-build-deployment](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment)
+
 <img src="Notifications/applet.png" alt="Github Project" style="width:25%;">
 
 MacEFIMounter is a (Status Menu) to mount and Unmount EFI partitions in macOS
