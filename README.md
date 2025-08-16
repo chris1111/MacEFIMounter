@@ -7,6 +7,10 @@ MacEFIMounter is a (Status Menu) to mount and Unmount EFI partitions in macOS
 - It can mount EFI partitions (GPT)➤ APFS, (GPT)➤ HFS+J, (GPT)➤ NTFS, (GPT) ➤ DMG
 - Not working encrypted volume
 
+--------------------------------------------------------------------------------
+
+- Please gives Feedback here ➦ [Feedback](https://github.com/chris1111/MacEFIMounter/discussions/1)
+  
 ### Credit:
 - Build by [chris1111](https://github.com/chris1111/) - [Clover team for Mount EFI script](https://sourceforge.net/projects/cloverefiboot/)
 
