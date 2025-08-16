@@ -15,6 +15,9 @@ MacEFIMounter is a (Status Menu) to mount and Unmount EFI partitions in macOS
 ### Download ➤ [Release MacEFIMounter](https://github.com/chris1111/MacEFIMounter/releases/tag/V1) For macOS Tahoe 26 and lower.
 
 ### View Installation Video ⬇︎ Release For macOS Tahoe 26
-
-### View Usage Mount/Unmount EFI Video ⬇︎ Release For macOS Tahoe 26
+- Usage Mount/Unmount EFI Video ⬇︎ Release For macOS Tahoe 26
 - NOTE: The release is without Password Automate
+  
+https://github.com/user-attachments/assets/9a8117c1-c420-4e27-8053-b17c7e98e0dd
+
+
