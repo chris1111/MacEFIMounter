@@ -1,0 +1,12 @@
+#!/bin/bash
+# Umount-EFI
+# by chris1111
+
+DEST_VOL="/Volumes/EFI"
+if [ -d "/Volumes/EFI" ]; then
+  umount -f "$DEST_VOL"*
+fi
+
+
+
+

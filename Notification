@@ -1,0 +1,12 @@
+#!/bin/bash
+# Notification
+# by chris1111
+PARENTDIR=$(dirname "$0")
+cd "$PARENTDIR"
+# Restart AlternateImage
+if [ -d "/Applications/MacEFIMounter.app" ]; then
+  killall -c MacEFIMounter && sleep 0.2 && open /Applications/MacEFIMounter.app && sleep 0.5 && open ./Notification.app
+fi
+
+
+
