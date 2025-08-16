@@ -15,7 +15,8 @@ git clone https://github.com/chris1111/MacEFIMounter.git && cd $HOME/MacEFIMount
 
 
 ## Image: Release Build
-<img width="845" height="750" alt="Screenshot 2025-08-13 at 6 56 49 PM" src="https://github.com/user-attachments/assets/83c84964-7365-46f9-880b-efb1bb10f9df" />
+<img width="728" height="411" alt="Screenshot 2025-08-15 at 10 01 51 PM" src="https://github.com/user-attachments/assets/5977e0a8-51a4-470b-9fd7-d0e8bc4a408b" />
+
 
 
 
