@@ -44,6 +44,7 @@ if [ "$action" == "Build Regular" ] ; then
      Sleep 2
      make
      cp -rp "$APPS_NAME" ./build/Release/"$APP_NAME"/Contents/Resources/
+     cp -rp ./AutomatePassword ./build/Release/"$APP_NAME"/Contents/Resources/AutomatePassword
      # Install App if Yes
 response=$(osascript -e 'tell app "System Events" to display dialog "Do you want to install the App on your Applications\n\nCancel for Quit" buttons {"Cancel","Install"} default button 2 with title "'"$apptitle"' '"$version"'" with icon POSIX file "'"$iconfile"'"  ')
 
@@ -51,9 +52,11 @@ action=$(echo $response | cut -d ':' -f2)
 
 # Exit if Canceled
 if [ ! "$action" ] ; then
-  echo "User cancel MacEFIMounter quit in 3 sec . . . "
+  echo "User cancel MacEFIMounter quit in 3 sec . . . 
+User does not want to install the Applications"
   Sleep 3
   osascript -e 'display notification "Program closing" with title "'"$apptitle"'" subtitle "User cancelled"'
+  echo "Open Release"
   open ./build/Release
   exit 0
 
@@ -81,18 +84,20 @@ echo "Create /Applications/MacEFIMounter.app
 Done.
 App is ready on Status Bar"
 echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+open ./build/Release
 fi
 
 if [ "$action" == "Automate Password" ] ; then
      echo " "
      echo "Welcome $USER *** Automate Password ***"
-     Sleep 3
+     Sleep 1
      cd $HOME/MacEFIMounter
      cp -Rp ./AutomatePassword /Private/tmp
 
 read -r -d '' CodeMenu <<'EOF'
    set iconfile to alias "System:Library:CoreServices:Finder.app:Contents:Resources:Finder.icns"
    set Box to text returned of (display dialog "
+MacEFIMounter ➢ AutomatePassword
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ⬇ ︎Type: Your your password to include it in the applications
@@ -157,6 +162,7 @@ done
   make
   Sleep 1
   cp -rp "$APPS_NAME" ./build/Release/"$APP_NAME"/Contents/Resources/
+  cp -rp ./AutomatePassword ./build/Release/"$APP_NAME"/Contents/Resources/AutomatePassword
   rm -rf /Private/tmp/AutomatePassword
 
 echo "Remove New if exist"
@@ -180,6 +186,10 @@ action=$(echo $response | cut -d ':' -f2)
 # Exit if Canceled
 if [ ! "$action" ] ; then
   osascript -e 'display notification "Program closing" with title "'"$apptitle"'" subtitle "User cancelled"'
+  echo "User cancel MacEFIMounter quit in 3 sec . . . 
+User does not want to install the Applications"
+  Sleep 3
+  echo "Open Release"
   open ./build/Release
   exit 0
 
@@ -196,4 +206,5 @@ echo "Create /Applications/MacEFIMounter.app
 Done.
 App is ready on Status Bar"
 echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+open ./build/Release
 fi

@@ -1,0 +1,109 @@
+#!/bin/sh
+# Setup_Choice Copyright (c) 2025 chris1111 All rights reserved.
+# Dependencies: osacompile
+PARENTDIR=$(dirname "$0")
+cd "$PARENTDIR"
+# Declare some VARS
+SCRIPTS_NAME=/Private/tmp/AutomatePassword/MacEFIMounter.applescript
+APP_NAME="/Private/tmp/MacEFIMounter.app"
+APPS_NAME="/Applications/MacEFIMounter.app"
+apptitle="Setup_Choice"
+version="1.0"
+# Set Icon directory and file 
+iconfile="/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns"
+# Setup_Choice
+response=$(osascript -e 'tell app "System Events" to display dialog "❮ Automate Password ❯: This will Automate the task without having to enter your password for your application
+
+❮ Regular ❯: You will need to enter your password each time you use it.\n\nCancel for Quit" buttons {"Cancell","Regular","Automate Password"} default button 3 with title "'"$apptitle"' '"$version"'" with icon POSIX file "'"$iconfile"'"  ')
+
+action=$(echo $response | cut -d ':' -f2)
+
+
+# Exit if Canceled
+if [ "$action" == "Cancell" ] ; then
+     osascript -e 'display notification "Setup_Choice quit" with title "'"$apptitle"'" subtitle "User cancel"'
+     echo "User cancel Setup_Choice quit in 1 sec . . ."
+     Sleep 1
+     exit 0
+fi
+
+
+if [ "$action" == "Regular" ] ; then
+     echo "Release Regular"
+     cp -Rp ./AutomatePassword /Private/tmp/AutomatePassword
+     Sleep 1
+     mv /Private/tmp/AutomatePassword/regular.txt /Private/tmp/AutomatePassword/MacEFIMounter.applescript
+     Sleep 1
+     rm -rf $APPS_NAME/Contents/Resources/MacEFIMounter.scpt
+     /usr/bin/osacompile -o "$APP_NAME" "$SCRIPTS_NAME"
+     Sleep 1
+     cp -Rp "$APP_NAME"/Contents/Resources/Scripts/main.scpt $APPS_NAME/Contents/Resources/MacEFIMounter.scpt
+     Sleep 1
+     rm -rf /Private/tmp/AutomatePassword
+     rm -rf "$APP_NAME"
+     killall -c MacEFIMounter
+     Sleep 1
+     Open $APPS_NAME
+     echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+     echo "App is ready on Status Bar"
+     echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+     osascript -e 'display notification "Setup_Choice Done" with title "'"$apptitle"'" subtitle "App is Regular"'
+fi
+
+if [ "$action" == "Automate Password" ] ; then
+     echo " "
+     echo "Welcome $USER *** Automate Password ***"
+     Sleep 1
+     cp -Rp ./AutomatePassword /Private/tmp/AutomatePassword
+
+read -r -d '' CodeMenu <<'EOF'
+   set iconfile to alias "System:Library:CoreServices:Finder.app:Contents:Resources:Finder.icns"
+   set Box to text returned of (display dialog "
+Automate Password
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+⬇ ︎Type: Your your password to include it in the applications
+
+Then press the OK button
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" default answer "" buttons {"OK"} default button {"OK"} with hidden answer with icon iconfile)
+return Box
+EOF
+
+Box=$(osascript -e "$CodeMenu");
+echo " "
+
+OLD="12345"
+MYPATH="/Private/tmp/AutomatePassword/MacEFIMounter.txt"
+TFILE="/Private/tmp/out.tmp"
+for f in $MYPATH
+do
+  if [ -f $f -a -r $f ]; then
+   sed "s/$OLD/$Box/g" "$f" > $TFILE && mv $TFILE "$f"
+  else
+   echo "Error: Cannot read $f"
+  fi
+done
+  Sleep 1
+  mv /Private/tmp/AutomatePassword/MacEFIMounter.txt /Private/tmp/AutomatePassword/MacEFIMounter.applescript
+  Sleep 1
+  rm -rf $APPS_NAME/Contents/Resources/MacEFIMounter.scpt
+  /usr/bin/osacompile -o "$APP_NAME" "$SCRIPTS_NAME"
+  Sleep 1
+  cp -Rp "$APP_NAME"/Contents/Resources/Scripts/main.scpt $APPS_NAME/Contents/Resources/MacEFIMounter.scpt
+  Sleep 1
+  rm -rf /Private/tmp/AutomatePassword
+  rm -rf "$APP_NAME"
+  killall -c MacEFIMounter
+  Sleep 1
+  Open $APPS_NAME
+  echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+  echo "App is ready on Status Bar"
+  echo "= = = = = = = = = = = = = = = = = = = = = = = = =  "
+  osascript -e 'display notification "Setup_Choice Done" with title "'"$apptitle"'" subtitle "App is Automate Password"'
+
+fi
+
+

@@ -64,6 +64,11 @@ Please make your selection:"
 		do shell script Notification
 	end doSomething:
 	
+	on doSomethings:sender --  Setup_Choice		
+		set source to quoted form of POSIX path of (path to resource "Setup_Choice")
+		do shell script source
+	end doSomethings:
+	
 	on awakeFromNib()
 		set bundle to NSBundle's mainBundle()
 		set AppletIcon to NSImage's alloc's initWithContentsOfFile:(bundle's pathForResource:"Applet" ofType:"png")

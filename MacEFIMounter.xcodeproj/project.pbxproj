@@ -19,6 +19,7 @@
 		839B84CB2D59078400ECFF04 /* Notification in Resources */ = {isa = PBXBuildFile; fileRef = 839B84CA2D59078400ECFF04 /* Notification */; };
 		83E263842D29F3DA00AF94A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E263832D29F3DA00AF94A8 /* Assets.xcassets */; };
 		83E263862D29F3E000AF94A8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 83E263852D29F3E000AF94A8 /* AppIcon.icns */; };
+		83F726A12E5203EC007F0A17 /* Setup_Choice in Resources */ = {isa = PBXBuildFile; fileRef = 83F726A02E5203EC007F0A17 /* Setup_Choice */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -47,6 +48,7 @@
 		839B84CA2D59078400ECFF04 /* Notification */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Notification; sourceTree = "<group>"; };
 		83E263832D29F3DA00AF94A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E263852D29F3E000AF94A8 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		83F726A02E5203EC007F0A17 /* Setup_Choice */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Setup_Choice; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MacEFIMounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacEFIMounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9015E6C611585729008B2646 /* Assistant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Assistant.png; sourceTree = "<group>"; };
 		9060979E1158664A00EE0714 /* Applet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Applet.png; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				832417D82E4B5FCA0024C5AA /* Notification.app */,
 				834E9B8B2E4AD1FF00313E0F /* Helper-EFI */,
+				83F726A02E5203EC007F0A17 /* Setup_Choice */,
 				834E9B832E4ABA7900313E0F /* Mountaif */,
 				834E9B842E4ABA7900313E0F /* Unmountaif */,
 				838193DC2D2985210043FA3A /* Unmount */,
@@ -214,6 +217,7 @@
 				834E9B852E4ABA7900313E0F /* Unmountaif in Resources */,
 				834E9B862E4ABA7900313E0F /* Mountaif in Resources */,
 				83E263842D29F3DA00AF94A8 /* Assets.xcassets in Resources */,
+				83F726A12E5203EC007F0A17 /* Setup_Choice in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
