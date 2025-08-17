@@ -39,11 +39,19 @@
                         <action selector="terminate:" target="-1" id="538"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="KLj-fi-b07"/>
+                <menuItem title="Setup ⇔ Password" id="qwZ-X5-eky">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="doSomethings:" target="494" id="ZfS-v4-XPP"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="HMD-97-opp"/>
             </items>
             <connections>
                 <outlet property="delegate" destination="494" id="553"/>
             </connections>
-            <point key="canvasLocation" x="-317" y="-360"/>
+            <point key="canvasLocation" x="-317.5" y="-327.5"/>
         </menu>
     </objects>
 </document>
