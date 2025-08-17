@@ -10,6 +10,8 @@ git clone https://github.com/chris1111/MacEFIMounter.git && cd $HOME/MacEFIMount
 
 ### View Video Clone Build ⬇︎ Install App
 
+https://github.com/user-attachments/assets/3de97e38-b2b0-4ba3-9069-391932f9b066
+
 
 ## Image: Release Build
 <img width="728" height="411" alt="Screenshot 2025-08-15 at 10 01 51 PM" src="https://github.com/user-attachments/assets/5977e0a8-51a4-470b-9fd7-d0e8bc4a408b" />
