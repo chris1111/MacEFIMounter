@@ -1,0 +1,307 @@
+#!/bin/bash
+# =====================================================================
+#  ESPMount.command — Universal Volume Mounter (verbose edition)
+#  ESP Mount Strategy extracted from CloverLogoutHook v1.6.2
+#  Copyright © 2026 chris1111, All Rights Reserved.
+#
+#  Mounts the EFI partition of ANY disk, based on ANY volume from
+#  that disk. Works with disk identifiers, volume names, or mount
+#  points (ex: /Volumes/Windows-11 → its disk's EFI partition).
+#
+#  Usage:
+#     sudo ./ESPMount.command /Volumes/Macintosh HD   # mount ESP of that volume
+#     sudo ./ESPMount.command disk2s1               # mount ESP of that disk
+#     sudo ./ESPMount.command unmount /Volumes/Macintosh HD
+#     ./ESPMount.command list                        # list all volumes
+# =====================================================================
+
+VERSION="1.0"
+set -uo pipefail
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  OUTPUT
+# ────────────────────────────────────────────────────────────────────────
+
+log()  { echo "$(date '+%Y-%m-%d %H:%M:%S') [ESPMount v${VERSION}] $*"; }
+die()  { echo "ERROR: $*" >&2; exit 1; }
+info() { echo "INFO:  $*"; }
+ok()   { echo "OK:    $*"; }
+warn() { echo "WARN:  $*"; }
+step() { echo "─── $* ───"; }
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  HELPERS
+# ────────────────────────────────────────────────────────────────────────
+
+if [[ $EUID -ne 0 ]]; then
+  exec sudo "$0" "$@"
+fi
+
+echo "Running as root: $(whoami)"
+
+# Get the mount point of a volume (accepts diskXsY, volume name, mount point)
+get_mount_point() {
+    local mp
+    mp="$(diskutil info "$1" 2>/dev/null \
+          | awk -F': *' '/^ *Mount Point:/ {print $2; exit}')"
+    if [[ "$mp" == /* ]]; then
+        printf '%s\n' "$mp"
+        return 0
+    fi
+    return 1
+}
+
+# Get the whole disk that hosts a volume/mount point/identifier
+get_whole_disk() {
+    local whole
+    whole="$(diskutil info "$1" 2>/dev/null \
+             | awk -F': *' '/^ *Part of Whole:/ {print $2; exit}')"
+    [[ -n "$whole" ]] && { printf '%s\n' "$whole"; return 0; }
+    return 1
+}
+
+# Get the device identifier of a volume/mount point
+get_device_identifier() {
+    local ident
+    ident="$(diskutil info "$1" 2>/dev/null \
+             | awk -F': *' '/^ *Device Identifier:/ {print $2; exit}')"
+    [[ -n "$ident" ]] && { printf '%s\n' "$ident"; return 0; }
+    return 1
+}
+
+# Get the EFI partition of a whole disk (ex: disk2 → disk2s1)
+get_efi_partition() {
+    local whole="$1"
+    diskutil list "$whole" 2>/dev/null \
+        | awk '/^[ \t]*[0-9]+:/ && /EFI/ {print $NF; exit}'
+}
+
+# Get the filesystem type (legacy-safe)
+get_fstype() {
+    diskutil info -plist "$1" 2>/dev/null \
+        | awk -F'<string>' '/FilesystemName|FilesystemType/ {gsub(/<\/string>.*/,"",$2); print $2; exit}'
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  RESOLUTION — resolve the user's argument to the TARGET ESP volume
+#      Accepts: diskXsY | volume name | mount point (ex: /Volumes/Macintosh HD)
+#      Returns: ESPID = the EFI partition identifier to mount
+# ────────────────────────────────────────────────────────────────────────
+
+resolve_target_esp() {
+    local user_arg="$1"
+    local identifier whole_disk efi_part
+
+    step "Resolving target from: '$user_arg'"
+
+    # Case A — user passed a disk identifier directly (diskXsY)
+    if [[ "$user_arg" =~ ^disk[0-9]+s[0-9]+$ ]]; then
+        identifier="$user_arg"
+        info "Input is a disk identifier: $identifier"
+
+        # Is the identifier itself an EFI partition? If yes, use it.
+        # If not, find the EFI partition on its host disk.
+        whole_disk="$(get_whole_disk "$identifier")"
+        efi_part="$(get_efi_partition "$whole_disk")"
+
+        if [[ "$identifier" == "$efi_part" ]]; then
+            ESPID="$identifier"
+            info "Identifier IS the EFI partition: $ESPID"
+            return 0
+        fi
+
+        [[ -n "$efi_part" ]] || die "no EFI partition on disk $whole_disk"
+        ESPID="$efi_part"
+        info "Resolved to host-disk EFI: $ESPID"
+        return 0
+    fi
+
+    identifier="$(get_device_identifier "$user_arg")" \
+        || die "cannot resolve '$user_arg' — check: diskutil list"
+    info "Resolved '$user_arg' → device identifier: $identifier"
+
+    whole_disk="$(get_whole_disk "$identifier")" \
+        || die "cannot find host disk for '$identifier'"
+    info "Host disk: $whole_disk"
+
+    efi_part="$(get_efi_partition "$whole_disk")"
+
+    if [[ -n "$efi_part" ]]; then
+        ESPID="$efi_part"
+        info "Resolved to host-disk EFI: $ESPID"
+        return 0
+    fi
+
+    warn "No EFI partition on $whole_disk — falling back to the volume itself"
+    ESPID="$identifier"
+    return 0
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  MOUNT — visible (desktop) using the validated cascade
+# ────────────────────────────────────────────────────────────────────────
+
+mount_visible() {
+    local vol="$1"
+
+    # Already mounted? Report and exit cleanly.
+    if MP="$(get_mount_point "$vol")"; then
+        ok "Volume ${vol} already mounted at: ${MP}"
+        info "No action needed."
+        return 0
+    fi
+
+    # Method 1: plain diskutil mount (10.9+) — VISIBLE
+    if diskutil mount "$vol" >/dev/null 2>&1; then
+        MP="$(get_mount_point "$vol")"
+        ok "Volume ${vol} mounted (VISIBLE) at: ${MP}"
+        return 0
+    fi
+
+    # Method 2: legacy mount (10.6-10.8) — VISIBLE
+    warn "diskutil mount failed — trying legacy mount…"
+
+    local fstype target="/Volumes/EFI"
+    fstype=$(get_fstype "$vol")
+
+    mkdir -p "$target" 2>/dev/null
+
+    local okm=0
+    case "$fstype" in
+        *MS-DOS*|*FAT*|*msdos*)
+            /sbin/mount_msdos /dev/${vol} "$target" 2>/dev/null && okm=1 ;;
+        *HFS*|*Journaled*)
+            /sbin/mount_hfs /dev/${vol} "$target" 2>/dev/null && okm=1 ;;
+        *)
+            /sbin/mount_msdos /dev/${vol} "$target" 2>/dev/null && okm=1 \
+                || /sbin/mount_hfs /dev/${vol} "$target" 2>/dev/null && okm=1 ;;
+    esac
+
+    if (( okm )); then
+        MP="$target"
+        ok "Volume ${vol} mounted (VISIBLE, legacy) at: ${MP}"
+        return 0
+    fi
+
+    die "cannot mount ${vol} — all methods failed"
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  UNMOUNT — by the ESP identifier (or by resolved volume)
+# ────────────────────────────────────────────────────────────────────────
+
+unmount_target() {
+    local user_arg="$1"
+    resolve_target_esp "$user_arg"
+
+    if MP="$(get_mount_point "$ESPID")"; then
+        diskutil unmount force "$MP" >/dev/null 2>&1 \
+            || diskutil unmount force /dev/${ESPID} >/dev/null 2>&1
+        ok "Volume ${ESPID} unmounted (${MP} released)"
+    else
+        info "Volume ${ESPID} is not mounted"
+    fi
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  LIST — show all volumes
+# ────────────────────────────────────────────────────────────────────────
+
+list_volumes() {
+    log "─── All volumes on this system ─────────────────────────"
+    diskutil list
+    echo ""
+    log "─── Currently mounted ──────────────────────────────────"
+    mount | grep "^/dev/" | awk '{print "  " $1 "  ->  " $3}'
+    echo ""
+    info "Mount an ESP:  sudo $0 /Volumes/Windows-11"
+    info "            or sudo $0 disk1s1"
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  MAIN ACTIONS
+# ────────────────────────────────────────────────────────────────────────
+
+cmd_mount() {
+    local user_arg="$1"
+
+    # v1.5.1-style recovery: resolve to ESP, then mount it visibly
+    resolve_target_esp "$user_arg"
+
+    step "Mounting ${ESPID} (visible)"
+
+    if MP="$(get_mount_point "$ESPID")"; then
+        ok "Volume ${ESPID} already mounted at: ${MP}"
+        info "Path: ${MP}"
+        return 0
+    fi
+
+    mount_visible "$ESPID"
+    info "Path to ESP contents: ${MP}"
+}
+
+cmd_unmount() {
+    local user_arg="$1"
+    unmount_target "$user_arg"
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  LIST — show all volumes
+# ────────────────────────────────────────────────────────────────────────
+
+list_volumes() {
+    log "─── All volumes on this system ─────────────────────────"
+    diskutil list
+    echo ""
+    log "─── Currently mounted ──────────────────────────────────"
+    mount | grep "^/dev/" | awk '{print "  " $1 "  ->  " $3}'
+    echo ""
+    info "Mount an ESP:  sudo $0 /Volumes/Macintosh HD"
+    info "            or sudo $0 disk1s1"
+}
+
+
+# ────────────────────────────────────────────────────────────────────────
+#  COMMAND DISPATCHER
+# ────────────────────────────────────────────────────────────────────────
+
+CMD="${1:-list}"
+
+case "$CMD" in
+
+    mount)
+        shift
+        [[ $# -ge 1 ]] || die "usage: sudo $0 mount <volume | diskXsY | /Volumes/X>"
+        need_root mount
+        cmd_mount "$1"
+        ;;
+
+    unmount)
+        shift
+        [[ $# -ge 1 ]] || die "usage: sudo $0 unmount <volume | diskXsY | /Volumes/X>"
+        need_root unmount
+        cmd_unmount "$1"
+        ;;
+
+    list)
+        list_volumes
+        ;;
+
+    version)
+        log "ESPMount v${VERSION} — Universal ESP Mounter"
+        ;;
+
+    # --- MountESP style: NO verb -> first arg IS the target --------------
+    *)
+        need_root "$CMD"
+        cmd_mount "$CMD"
+        ;;
+esac
