@@ -37,7 +37,7 @@ Please make your selection:"
 		try
 			delay 1
 			set file_list to ""
-			set the_command to quoted form of POSIX path of (path to resource "ESPMount")
+			set the_command to quoted form of POSIX path of (path to resource "Helper-EFI")
 			
 			repeat with file_path in Diskpath
 				set file_list to file_list & " " & quoted form of POSIX path of file_path
