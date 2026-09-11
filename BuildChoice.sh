@@ -1,5 +1,4 @@
 #!/bin/sh
-# Dependencies: osacompile
 # Declare some VARS
 APP_NAME="MacEFIMounter.app"
 APP=/Applications/MacEFIMounter.app
