@@ -4,7 +4,7 @@ layout: default
 
 # MacEFIMounter
 
-<img src="Notifications/applet.png" alt="Github Project" style="width:25%;">
+<img src="ScriptSources/applet.png" alt="Github Project" style="width:25%;">
 
 MacEFIMounter is a (Status Menu) to mount and Unmount EFI partitions in macOS
 - It works from macOS Big Sur 11.5 to macOS Tahoe 26.
