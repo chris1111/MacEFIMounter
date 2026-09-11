@@ -1,6 +1,6 @@
 # MacEFIMounter
 
-[![License: MIT](https://github.com/chris1111/MacEFIMounter/blob/main/Notifications/MIT.svg)](https://github.com/chris1111/MacEFIMounter/blob/main/LICENSE)[![pages-build-deployment](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/chris1111/MacEFIMounter/blob/main/LICENSE) [![pages-build-deployment](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/chris1111/MacEFIMounter/actions/workflows/pages/pages-build-deployment)
 
 <img src="Notifications/applet.png" alt="Github Project" style="width:25%;">
 
