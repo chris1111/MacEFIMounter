@@ -9,17 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		3BC3FB040ED20C27004AC079 /* AppleScriptObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC3FB030ED20C27004AC079 /* AppleScriptObjC.framework */; };
-		832417D92E4B5FCA0024C5AA /* Notification.app in Resources */ = {isa = PBXBuildFile; fileRef = 832417D82E4B5FCA0024C5AA /* Notification.app */; };
 		834E9B7F2E4AB98500313E0F /* MacEFIMounter.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 834E9B7E2E4AB98500313E0F /* MacEFIMounter.applescript */; };
-		834E9B852E4ABA7900313E0F /* Unmountaif in Resources */ = {isa = PBXBuildFile; fileRef = 834E9B842E4ABA7900313E0F /* Unmountaif */; };
-		834E9B862E4ABA7900313E0F /* Mountaif in Resources */ = {isa = PBXBuildFile; fileRef = 834E9B832E4ABA7900313E0F /* Mountaif */; };
-		834E9B8C2E4AD1FF00313E0F /* Helper-EFI in Resources */ = {isa = PBXBuildFile; fileRef = 834E9B8B2E4AD1FF00313E0F /* Helper-EFI */; };
 		835735B72E4D49FF000BD0AE /* MacEFIMounter.recover.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 835735B62E4D49FF000BD0AE /* MacEFIMounter.recover.rtf */; };
-		838193DE2D2985210043FA3A /* Unmount in Resources */ = {isa = PBXBuildFile; fileRef = 838193DC2D2985210043FA3A /* Unmount */; };
-		839B84CB2D59078400ECFF04 /* Notification in Resources */ = {isa = PBXBuildFile; fileRef = 839B84CA2D59078400ECFF04 /* Notification */; };
 		83E263842D29F3DA00AF94A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E263832D29F3DA00AF94A8 /* Assets.xcassets */; };
 		83E263862D29F3E000AF94A8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 83E263852D29F3E000AF94A8 /* AppIcon.icns */; };
-		83F726A12E5203EC007F0A17 /* Setup_Choice in Resources */ = {isa = PBXBuildFile; fileRef = 83F726A02E5203EC007F0A17 /* Setup_Choice */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -36,19 +29,12 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3BC3FB030ED20C27004AC079 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = /System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = "<absolute>"; };
-		832417D82E4B5FCA0024C5AA /* Notification.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Notification.app; sourceTree = "<group>"; };
 		834E9B7E2E4AB98500313E0F /* MacEFIMounter.applescript */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.applescript; path = MacEFIMounter.applescript; sourceTree = "<group>"; };
 		834E9B802E4AB9D500313E0F /* MacEFIMounter_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacEFIMounter_Prefix.pch; sourceTree = "<group>"; };
-		834E9B832E4ABA7900313E0F /* Mountaif */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mountaif; sourceTree = "<group>"; };
-		834E9B842E4ABA7900313E0F /* Unmountaif */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unmountaif; sourceTree = "<group>"; };
 		834E9B892E4AC26500313E0F /* MacEFIMounter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MacEFIMounter-Info.plist"; sourceTree = "<group>"; };
-		834E9B8B2E4AD1FF00313E0F /* Helper-EFI */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "Helper-EFI"; sourceTree = "<group>"; };
 		835735B62E4D49FF000BD0AE /* MacEFIMounter.recover.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = MacEFIMounter.recover.rtf; path = ScriptSources/MacEFIMounter.recover.rtf; sourceTree = "<group>"; };
-		838193DC2D2985210043FA3A /* Unmount */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Unmount; sourceTree = "<group>"; };
-		839B84CA2D59078400ECFF04 /* Notification */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Notification; sourceTree = "<group>"; };
 		83E263832D29F3DA00AF94A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E263852D29F3E000AF94A8 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
-		83F726A02E5203EC007F0A17 /* Setup_Choice */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Setup_Choice; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MacEFIMounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacEFIMounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9015E6C611585729008B2646 /* Assistant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Assistant.png; sourceTree = "<group>"; };
 		9060979E1158664A00EE0714 /* Applet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Applet.png; sourceTree = "<group>"; };
@@ -127,13 +113,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				832417D82E4B5FCA0024C5AA /* Notification.app */,
-				834E9B8B2E4AD1FF00313E0F /* Helper-EFI */,
-				83F726A02E5203EC007F0A17 /* Setup_Choice */,
-				834E9B832E4ABA7900313E0F /* Mountaif */,
-				834E9B842E4ABA7900313E0F /* Unmountaif */,
-				838193DC2D2985210043FA3A /* Unmount */,
-				839B84CA2D59078400ECFF04 /* Notification */,
 				9060979E1158664A00EE0714 /* Applet.png */,
 				9015E6C611585729008B2646 /* Assistant.png */,
 				834E9B892E4AC26500313E0F /* MacEFIMounter-Info.plist */,
@@ -207,17 +186,10 @@
 				835735B72E4D49FF000BD0AE /* MacEFIMounter.recover.rtf in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				832417D92E4B5FCA0024C5AA /* Notification.app in Resources */,
 				83E263862D29F3E000AF94A8 /* AppIcon.icns in Resources */,
-				839B84CB2D59078400ECFF04 /* Notification in Resources */,
 				9015E6C711585729008B2646 /* Assistant.png in Resources */,
 				9060979F1158664A00EE0714 /* Applet.png in Resources */,
-				838193DE2D2985210043FA3A /* Unmount in Resources */,
-				834E9B8C2E4AD1FF00313E0F /* Helper-EFI in Resources */,
-				834E9B852E4ABA7900313E0F /* Unmountaif in Resources */,
-				834E9B862E4ABA7900313E0F /* Mountaif in Resources */,
 				83E263842D29F3DA00AF94A8 /* Assets.xcassets in Resources */,
-				83F726A12E5203EC007F0A17 /* Setup_Choice in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
